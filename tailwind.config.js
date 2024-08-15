@@ -8,6 +8,7 @@ export default {
       grey: "#292929",
       white: "#FFFFFF",
       accent: "#BB86FC",
+      error: "#CF6679",
     },
   },
   plugins: [],
