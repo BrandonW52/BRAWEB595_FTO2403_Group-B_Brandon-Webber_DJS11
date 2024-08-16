@@ -6,6 +6,9 @@ import usePodcastStore from "../zustand/Store";
 import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import downArrowURL from "../assets/down-arrow-svgrepo-com.svg";
 import upArrowURL from "../assets/up-arrow-svgrepo-com.svg";
+import playButton from "../assets/play-button-svgrepo-com.svg";
+import favorited from "../assets/favorite-filled-svgrepo-com.svg";
+import unFavorited from "../assets/favorite-svgrepo-com.svg";
 
 export default function SinglePodcast() {
   const { podcastId } = useParams();
@@ -55,13 +58,18 @@ export default function SinglePodcast() {
           </button>
         </div>
         {activeSeasonIndex === index && (
-          <div>
-            {season.episodes.map((episode) => (
-              <div key={episode.episode}>
-                <h4>{episode.title}</h4>
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="flex flex-col gap-3">
+              {season.episodes.map((episode) => (
+                <div key={episode.episode} className="flex justify-between">
+                  <img className="h-4" src={playButton} alt="" />
+                  <h4 className="text-white">{episode.title}</h4>
+                  <img className="h-4" src={unFavorited} alt="" />
+                </div>
+              ))}
+            </div>
+            <hr className="text-white"></hr>
+          </>
         )}
       </div>
     );
