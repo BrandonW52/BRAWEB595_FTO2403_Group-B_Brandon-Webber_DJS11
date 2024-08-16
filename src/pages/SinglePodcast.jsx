@@ -3,7 +3,9 @@ import { Link, useParams } from "react-router-dom";
 
 import usePodcastStore from "../zustand/Store";
 
-import imgURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
+import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
+import downArrowURL from "../assets/down-arrow-svgrepo-com.svg";
+import upArrowURL from "../assets/up-arrow-svgrepo-com.svg";
 
 export default function SinglePodcast() {
   const { podcastId } = useParams();
@@ -26,13 +28,41 @@ export default function SinglePodcast() {
     fetchPodcast();
   }, [podcastId, fetchSinglePodcast]);
 
-  console.log(podcast);
+  const [activeSeasonIndex, setActiveSeasonIndex] = useState(null);
 
-  const seasonsElement = podcast?.seasons.map((season) => {
+  const toggleSeason = (index) => {
+    if (activeSeasonIndex === index) {
+      setActiveSeasonIndex(null);
+    } else {
+      setActiveSeasonIndex(index);
+    }
+  };
+
+  const seasonsElement = podcast?.seasons.map((season, index) => {
     return (
-      <div key={season.season} className="flex gap-2">
-        <img className="h-12 rounded-lg" src={season.image} alt="" />
-        <h1 className="my-auto text-white">{season.title}</h1>
+      <div key={season.season} className="flex flex-col w-full gap-2">
+        <div className="flex gap-2">
+          <img className="h-12 rounded-lg" src={season.image} alt="" />
+          <h1 className="my-auto text-white">{season.title}</h1>
+          <button
+            className="rounded-full bg-accent"
+            onClick={() => toggleSeason(index)}
+          >
+            <img
+              className="rounded-full p-1 h-8 bg-accent"
+              src={activeSeasonIndex === index ? upArrowURL : downArrowURL}
+            />
+          </button>
+        </div>
+        {activeSeasonIndex === index && (
+          <div>
+            {season.episodes.map((episode) => (
+              <div key={episode.episode}>
+                <h4>{episode.title}</h4>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   });
@@ -45,7 +75,7 @@ export default function SinglePodcast() {
           <div className="flex content-center gap-2 mb-3">
             <img
               className="rounded-full p-1 h-8 bg-accent"
-              src={imgURl}
+              src={backArrowURl}
               alt=""
             />
             <h1 className="text-white">Back to Podcasts</h1>
