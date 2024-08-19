@@ -2,18 +2,20 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import usePodcastStore from "../zustand/Store";
+import useFavoritesStore from "../zustand/FavoritesStore";
 
 import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import downArrowURL from "../assets/down-arrow-svgrepo-com.svg";
 import upArrowURL from "../assets/up-arrow-svgrepo-com.svg";
 import playButton from "../assets/play-button-svgrepo-com.svg";
-import favorited from "../assets/favorite-filled-svgrepo-com.svg";
-import unFavorited from "../assets/favorite-svgrepo-com.svg";
+import favoritedIcon from "../assets/favorite-filled-svgrepo-com.svg";
+import unFavoritedIcon from "../assets/favorite-svgrepo-com.svg";
 
 export default function SinglePodcast() {
   const { podcastId } = useParams();
 
   const { error, loading, fetchSinglePodcast } = usePodcastStore();
+  const { favorites, toggleFavorite } = useFavoritesStore();
 
   const [podcast, setPodcast] = useState(null);
   const [showMore, SetShowMore] = useState(false);
@@ -41,6 +43,14 @@ export default function SinglePodcast() {
     }
   };
 
+  const isFavorite = (episodeTitle) => {
+    return favorites.some((favorite) => favorite.title == episodeTitle);
+  };
+
+  const handleFavClick = (episode) => {
+    toggleFavorite(episode);
+  };
+
   const seasonsElement = podcast?.seasons.map((season, index) => {
     return (
       <div key={season.season} className="flex flex-col w-full gap-2">
@@ -64,7 +74,18 @@ export default function SinglePodcast() {
                 <div key={episode.episode} className="flex justify-between">
                   <img className="h-4" src={playButton} alt="" />
                   <h4 className="text-white">{episode.title}</h4>
-                  <img className="h-4" src={unFavorited} alt="" />
+
+                  <button onClick={() => handleFavClick(episode)}>
+                    <img
+                      className="h-4"
+                      src={
+                        isFavorite(episode.title)
+                          ? favoritedIcon
+                          : unFavoritedIcon
+                      }
+                      alt=""
+                    />
+                  </button>
                 </div>
               ))}
             </div>
