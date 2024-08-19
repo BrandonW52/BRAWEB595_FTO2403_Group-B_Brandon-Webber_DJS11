@@ -23,7 +23,6 @@ const usePodcastStore = create((set) => ({
       }
     } catch (error) {
       set({ podcasts: null, error });
-      console.log("error fetcing podcasts", error);
     }
 
     set({ loading: false });
@@ -43,7 +42,6 @@ const usePodcastStore = create((set) => ({
 
       return singlePodcast;
     } catch (error) {
-      console.error("error fetching product: ", error);
       set({ error, loading: false });
       return null;
     }

@@ -4,6 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import usePodcastStore from "../zustand/Store";
 import useFavoritesStore from "../zustand/FavoritesStore";
 
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+
 import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import downArrowURL from "../assets/down-arrow-svgrepo-com.svg";
 import upArrowURL from "../assets/up-arrow-svgrepo-com.svg";
@@ -97,7 +100,11 @@ export default function SinglePodcast() {
   });
 
   if (loading) {
-    return <h1 className="text-white text-center">Loading...</h1>;
+    return Loading();
+  }
+
+  if (error) {
+    return Error(error);
   }
 
   return (

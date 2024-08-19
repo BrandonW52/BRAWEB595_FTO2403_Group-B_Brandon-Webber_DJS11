@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import usePodcastStore from "../zustand/Store";
 
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+
 import favoriteImg from "../assets/favorite-filled-svgrepo-com.svg";
 
 export default function AllPodcasts() {
@@ -32,17 +35,11 @@ export default function AllPodcasts() {
   });
 
   if (loading) {
-    return <h1 className="text-white text-center">Loading...</h1>;
+    return Loading();
   }
 
   if (error) {
-    console.log(error);
-    return (
-      <div className="rounded-lg py-16 text-center bg-error">
-        <h1 className="text-white">Error</h1>
-        <p className="text-white">{error.TypeError}</p>
-      </div>
-    );
+    return Error(error);
   }
 
   return (
