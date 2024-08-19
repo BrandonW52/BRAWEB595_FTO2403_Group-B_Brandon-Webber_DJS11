@@ -6,7 +6,7 @@ import usePodcastStore from "../zustand/Store";
 import favoriteImg from "../assets/favorite-filled-svgrepo-com.svg";
 
 export default function AllPodcasts() {
-  const { podcasts, error, fetchAllPodcasts } = usePodcastStore();
+  const { podcasts, error, loading, fetchAllPodcasts } = usePodcastStore();
 
   useEffect(() => {
     if (!podcasts) {
@@ -23,7 +23,7 @@ export default function AllPodcasts() {
           <h1 className="text-white font-bold">{podcast.title}</h1>
           <p className="text-white">Genre/s: {podcast.genres}</p>
           <p className="text-white">Seasons: {podcast.seasons}</p>
-          <p className="text-white">
+          <p className="text-light-grey">
             Last updated: {podcast.updated.substring(0, 10)}
           </p>
         </Link>
@@ -31,9 +31,9 @@ export default function AllPodcasts() {
     );
   });
 
-  // if (loading) {
-  //   return <h1 className="text-white text-center">Loading...</h1>;
-  // }
+  if (loading) {
+    return <h1 className="text-white text-center">Loading...</h1>;
+  }
 
   if (error) {
     console.log(error);

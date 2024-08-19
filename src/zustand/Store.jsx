@@ -3,8 +3,10 @@ import { create } from "zustand";
 const usePodcastStore = create((set) => ({
   podcasts: JSON.parse(localStorage.getItem("podcasts")) || null,
   error: null,
+  loading: false,
 
   fetchAllPodcasts: async () => {
+    set({ loading: true });
     try {
       let allPodcasts = JSON.parse(localStorage.getItem("podcasts"));
 
@@ -23,9 +25,12 @@ const usePodcastStore = create((set) => ({
       set({ podcasts: null, error });
       console.log("error fetcing podcasts", error);
     }
+
+    set({ loading: false });
   },
 
   fetchSinglePodcast: async (podcastId) => {
+    set({ loading: true });
     try {
       // Calls Podcast show api
       const response = await fetch(
@@ -34,10 +39,12 @@ const usePodcastStore = create((set) => ({
 
       const singlePodcast = await response.json();
 
+      set({ loading: false });
+
       return singlePodcast;
     } catch (error) {
       console.error("error fetching product: ", error);
-      set({ error });
+      set({ error, loading: false });
       return null;
     }
   },

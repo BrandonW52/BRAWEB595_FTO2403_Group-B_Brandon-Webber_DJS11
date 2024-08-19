@@ -13,7 +13,7 @@ import unFavorited from "../assets/favorite-svgrepo-com.svg";
 export default function SinglePodcast() {
   const { podcastId } = useParams();
 
-  const { fetchSinglePodcast } = usePodcastStore();
+  const { error, loading, fetchSinglePodcast } = usePodcastStore();
 
   const [podcast, setPodcast] = useState(null);
   const [showMore, SetShowMore] = useState(false);
@@ -74,6 +74,10 @@ export default function SinglePodcast() {
       </div>
     );
   });
+
+  if (loading) {
+    return <h1 className="text-white text-center">Loading...</h1>;
+  }
 
   return (
     <>
