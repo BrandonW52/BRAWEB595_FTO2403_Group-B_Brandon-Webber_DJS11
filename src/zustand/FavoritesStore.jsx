@@ -25,3 +25,17 @@ const useFavoritesStore = create((set) => ({
 }));
 
 export default useFavoritesStore;
+
+// Rewrite so it looks something like this
+// object = {
+//     podcastId: 123,
+//     season: 2,
+//     episode: {
+//         title: "episode 1",
+//         description: "ep 1 desc",
+//         episode: 1,
+//         file: "#"
+//     }
+// }
+
+// then check all to see if it exists

@@ -51,17 +51,19 @@ export default function AllPodcasts() {
       <h1 className="text-white mx-auto text-center py-2">Paylists</h1>
       <hr className="text-white mx-2"></hr>
 
-      <div className="p-2">
-        <div className="flex p-4 gap-4 mt-2 rounded-lg bg-grey">
-          <img className="h-12 rounded-lg" src={favoriteImg} alt="" />
-          <h1 className="my-auto text-white text-xl font-bold">Favorites</h1>
+      <Link to="favorites">
+        <div className="p-2">
+          <div className="flex p-4 gap-4 mt-2 rounded-lg bg-grey">
+            <img className="h-12 rounded-lg" src={favoriteImg} alt="" />
+            <h1 className="my-auto text-white text-xl font-bold">Favorites</h1>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Podcasts */}
       <h1 className="text-white mx-auto text-center py-2">All Podcasts</h1>
       <hr className="text-white mx-2"></hr>
-      <div className="grid grid-cols-2 gap-4 p-2">{podcastElements}</div>
+      <div className="grid grid-cols-2 gap-4 p-2 mb-14">{podcastElements}</div>
     </>
   );
 }

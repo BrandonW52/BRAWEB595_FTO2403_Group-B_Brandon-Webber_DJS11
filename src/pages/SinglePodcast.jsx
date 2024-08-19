@@ -101,7 +101,7 @@ export default function SinglePodcast() {
   }
 
   return (
-    <>
+    <div className="h-full pb-14">
       {/* Top card for displaying podcast info */}
       <div className="bg-grey rounded-xl p-4 my-3 mx-4">
         <Link to={`..`} relative="path">
@@ -148,6 +148,6 @@ export default function SinglePodcast() {
 
         <div className="grid grid-cols-1 gap-4">{seasonsElement}</div>
       </div>
-    </>
+    </div>
   );
 }
