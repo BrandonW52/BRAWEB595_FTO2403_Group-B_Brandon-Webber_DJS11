@@ -24,7 +24,7 @@ export default function AllPodcasts() {
         <Link to={podcast.id}>
           <img className="rounded-lg" src={podcast.image} alt="" />
           <h1 className="text-white font-bold">{podcast.title}</h1>
-          <p className="text-white">Genre/s: {podcast.genres}</p>
+          <p className="text-white">Genre/s: {podcast.genres.join(", ")}</p>
           <p className="text-white">Seasons: {podcast.seasons}</p>
           <p className="text-light-grey">
             Last updated: {podcast.updated.substring(0, 10)}
@@ -58,8 +58,11 @@ export default function AllPodcasts() {
       </Link>
 
       {/* Podcasts */}
-      <h1 className="text-white mx-auto text-center py-2">All Podcasts</h1>
-      <hr className="text-white mx-2"></hr>
+      <div className="flex p-2 gap-4 mt-2 mx-2 rounded-lg bg-grey">
+        <h1 className="text-accent mx-auto text-center text-2xl">
+          All Podcasts
+        </h1>
+      </div>
       <div className="grid grid-cols-2 gap-4 p-2 mb-14">{podcastElements}</div>
     </>
   );

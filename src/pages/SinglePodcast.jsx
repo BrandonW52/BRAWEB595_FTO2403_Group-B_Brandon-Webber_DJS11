@@ -22,6 +22,7 @@ export default function SinglePodcast() {
 
   const [podcast, setPodcast] = useState(null);
   const [showMore, SetShowMore] = useState(false);
+  const [activeSeasonIndex, setActiveSeasonIndex] = useState(null);
 
   useEffect(() => {
     const fetchPodcast = async () => {
@@ -35,8 +36,6 @@ export default function SinglePodcast() {
 
     fetchPodcast();
   }, [podcastId, fetchSinglePodcast]);
-
-  const [activeSeasonIndex, setActiveSeasonIndex] = useState(null);
 
   const toggleSeason = (index) => {
     if (activeSeasonIndex === index) {
@@ -53,6 +52,10 @@ export default function SinglePodcast() {
   const handleFavClick = (episode) => {
     toggleFavorite(episode);
   };
+
+  const cleanedGenre = podcast?.genres
+    ?.filter((genre) => genre !== "All" && genre !== "Featured")
+    .join(", ");
 
   const seasonsElement = podcast?.seasons.map((season, index) => {
     return (
@@ -126,15 +129,21 @@ export default function SinglePodcast() {
           <img className="rounded-lg h-32" src={podcast?.image} alt="" />
           <div className="flex flex-col justify-between">
             <h1 className="text-white font-bold text-xl">{podcast?.title}</h1>
-            <h4 className="text-white">Genres: {podcast?.genres}</h4>
-            <h4 className="text-white">Seasons: {podcast?.seasons.length}</h4>
+
+            {cleanedGenre?.length > 0 ? (
+              <h4 className="text-sm text-white">Genres: {cleanedGenre}</h4>
+            ) : null}
+
+            <h4 className="text-sm text-white">
+              Seasons: {podcast?.seasons.length}
+            </h4>
           </div>
         </div>
         <p className="mt-auto text-white text-sm">
           Last Upload: {podcast?.updated.substring(0, 10)}
         </p>
 
-        <p className="text-white">
+        <p className="text-white text-sm">
           {showMore
             ? podcast?.description
             : `${podcast?.description.substring(0, 150)}...`}
