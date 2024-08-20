@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import usePodcastStore from "../zustand/Store";
 import useFavoritesStore from "../zustand/FavoritesStore";
 
-import Loading from "../components/Loading";
-import Error from "../components/Error";
+import Loading from "./Loading";
+import Error from "./Error";
 
 import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import downArrowURL from "../assets/down-arrow-svgrepo-com.svg";
@@ -21,7 +21,7 @@ export default function SinglePodcast() {
   const { favorites, toggleFavorite } = useFavoritesStore();
 
   const [podcast, setPodcast] = useState(null);
-  const [showMore, SetShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const [activeSeasonIndex, setActiveSeasonIndex] = useState(null);
 
   useEffect(() => {
@@ -169,7 +169,7 @@ export default function SinglePodcast() {
             : `${podcast?.description.substring(0, 150)}...`}
           <button
             className="ml-4 text-accent"
-            onClick={() => SetShowMore(!showMore)}
+            onClick={() => setShowMore(!showMore)}
           >
             {showMore ? "Show less" : "Show more"}
           </button>
