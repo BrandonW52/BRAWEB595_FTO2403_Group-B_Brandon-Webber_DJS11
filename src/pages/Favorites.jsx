@@ -5,31 +5,80 @@ import useFavoritesStore from "../zustand/FavoritesStore";
 import backArrowURl from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import playButton from "../assets/play-button-svgrepo-com.svg";
 import favoritedIcon from "../assets/favorite-filled-svgrepo-com.svg";
-import unFavoritedIcon from "../assets/favorite-svgrepo-com.svg";
 
 export default function Favorites() {
   const { favorites, toggleFavorite } = useFavoritesStore();
 
-  const isFavorite = (episodeTitle) => {
-    return favorites.some((favorite) => favorite.title == episodeTitle);
+  const handleFavClick = (favorite, season, episode) => {
+    const episodeObject = {
+      podcastId: favorite.podcastId,
+      podcastTitle: favorite.podcastTitle,
+      podcastGeners: favorite.podcastGeners,
+      seasons: [
+        { season: season.season, title: season.title, episodes: [episode] },
+      ],
+    };
+
+    toggleFavorite(episodeObject);
   };
 
-  const handleFavClick = (episode) => {
-    toggleFavorite(episode);
-  };
+  function mergeSeasonsInArray(arr) {
+    const mergedMap = new Map();
 
-  const favoriteElement = favorites.map((episode, index) => (
-    <div key={index} className="flex justify-between">
-      <img className="h-4" src={playButton} alt="" />
-      <h4 className="text-white">{episode.title}</h4>
+    arr.forEach((podcast) => {
+      if (mergedMap.has(podcast.podcastId)) {
+        const existingPodcast = mergedMap.get(podcast.podcastId);
 
-      <button onClick={() => handleFavClick(episode)}>
-        <img
-          className="h-4"
-          src={isFavorite(episode.title) ? favoritedIcon : unFavoritedIcon}
-          alt=""
-        />
-      </button>
+        podcast.seasons.forEach((season) => {
+          const existingSeason = existingPodcast.seasons.find(
+            (s) => s.season === season.season
+          );
+
+          if (existingSeason) {
+            existingSeason.episodes = [
+              ...existingSeason.episodes,
+              ...season.episodes,
+            ];
+          } else {
+            existingPodcast.seasons.push(season);
+          }
+        });
+      } else {
+        mergedMap.set(podcast.podcastId, JSON.parse(JSON.stringify(podcast)));
+      }
+    });
+
+    return Array.from(mergedMap.values());
+  }
+
+  const favoritesMerged = mergeSeasonsInArray(favorites);
+
+  const favoriteElement = favoritesMerged.map((favorite) => (
+    <div key={favorite.podcastId} className="flex flex-col">
+      <h4 className="font-bold text-accent">{favorite.podcastTitle}</h4>
+      {favorite.seasons?.map((season) => {
+        return (
+          <div key={favorite.podcastId + season.season}>
+            <h5 className="text-light-grey">Season: {season.season}</h5>{" "}
+            {season.episodes?.map((episode) => (
+              <div
+                key={favorite.podcastId + season.season + episode}
+                className="flex justify-between"
+              >
+                <img className="h-4" src={playButton} alt="" />
+                <h4 className="text-white">{episode.title}</h4>
+
+                <button
+                  onClick={() => handleFavClick(favorite, season, episode)}
+                >
+                  <img className="h-4" src={favoritedIcon} alt="" />
+                </button>
+              </div>
+            ))}
+          </div>
+        );
+      })}
+      <hr className="text-light-grey"></hr>
     </div>
   ));
 

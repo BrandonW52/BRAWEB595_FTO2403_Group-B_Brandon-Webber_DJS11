@@ -45,17 +45,37 @@ export default function SinglePodcast() {
     }
   };
 
-  const isFavorite = (episodeTitle) => {
-    return favorites.some((favorite) => favorite.title == episodeTitle);
-  };
-
-  const handleFavClick = (episode) => {
-    toggleFavorite(episode);
+  const isFavorite = (podcastId, podcastSeason, episodeTitle) => {
+    return favorites.some((favorite) => {
+      return (
+        favorite.podcastId === podcastId &&
+        favorite.seasons.some((season) => {
+          return (
+            season.season === podcastSeason &&
+            season.episodes.some((episode) => episode.title === episodeTitle)
+          );
+        })
+      );
+    });
   };
 
   const cleanedGenre = podcast?.genres
     ?.filter((genre) => genre !== "All" && genre !== "Featured")
     .join(", ");
+
+  const handleFavClick = (episode, season) => {
+    episode.added = new Date().toJSON().slice(0, 10);
+    const episodeObject = {
+      podcastId: podcastId,
+      podcastTitle: podcast.title,
+      podcastGeners: podcast.genres,
+      seasons: [
+        { season: season.season, title: season.title, episodes: [episode] },
+      ],
+    };
+
+    toggleFavorite(episodeObject);
+  };
 
   const seasonsElement = podcast?.seasons.map((season, index) => {
     return (
@@ -81,11 +101,11 @@ export default function SinglePodcast() {
                   <img className="h-4" src={playButton} alt="" />
                   <h4 className="text-white">{episode.title}</h4>
 
-                  <button onClick={() => handleFavClick(episode)}>
+                  <button onClick={() => handleFavClick(episode, season)}>
                     <img
                       className="h-4"
                       src={
-                        isFavorite(episode.title)
+                        isFavorite(podcastId, season.season, episode.title)
                           ? favoritedIcon
                           : unFavoritedIcon
                       }

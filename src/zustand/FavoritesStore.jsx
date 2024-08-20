@@ -3,18 +3,29 @@ import { create } from "zustand";
 const useFavoritesStore = create((set) => ({
   favorites: JSON.parse(localStorage.getItem("favorites")) || [],
 
-  toggleFavorite: (episode) => {
+  toggleFavorite: (episodeObject) => {
     set((state) => {
       const favorites = [...state.favorites];
 
-      const existingIndex = favorites.findIndex(
-        (favorite) => favorite.title == episode.title
-      );
+      const existingIndex = favorites.findIndex((favorite) => {
+        return (
+          favorite.podcastId === episodeObject.podcastId &&
+          favorite.seasons.some((season) => {
+            return (
+              season.season === episodeObject.seasons[0].season &&
+              season.episodes.some(
+                (ep) =>
+                  ep.episode === episodeObject.seasons[0].episodes[0].episode
+              )
+            );
+          })
+        );
+      });
 
       if (existingIndex >= 0) {
         favorites.splice(existingIndex, 1);
       } else {
-        favorites.push(episode);
+        favorites.push(episodeObject);
       }
 
       localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -39,3 +50,4 @@ export default useFavoritesStore;
 // }
 
 // then check all to see if it exists
+// Add time stamp when added

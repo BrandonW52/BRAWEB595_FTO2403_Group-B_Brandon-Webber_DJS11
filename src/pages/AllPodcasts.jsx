@@ -45,9 +45,6 @@ export default function AllPodcasts() {
   return (
     <>
       {/* Playists */}
-      <h1 className="text-white mx-auto text-center py-2">Paylists</h1>
-      <hr className="text-white mx-2"></hr>
-
       <Link to="favorites">
         <div className="p-2">
           <div className="flex p-4 gap-4 mt-2 rounded-lg bg-grey">
