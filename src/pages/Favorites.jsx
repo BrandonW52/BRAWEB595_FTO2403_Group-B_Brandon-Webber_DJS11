@@ -53,6 +53,8 @@ export default function Favorites() {
 
   const favoritesMerged = mergeSeasonsInArray(favorites);
 
+  console.log(favoritesMerged);
+
   const favoriteElement = favoritesMerged.map((favorite) => (
     <div key={favorite.podcastId} className="flex flex-col">
       <h4 className="font-bold text-accent">{favorite.podcastTitle}</h4>
@@ -62,7 +64,7 @@ export default function Favorites() {
             <h5 className="text-light-grey">Season: {season.season}</h5>{" "}
             {season.episodes?.map((episode) => (
               <div
-                key={favorite.podcastId + season.season + episode}
+                key={favorite.podcastId + season.season + episode.episode}
                 className="flex justify-between"
               >
                 <img className="h-4" src={playButton} alt="" />
