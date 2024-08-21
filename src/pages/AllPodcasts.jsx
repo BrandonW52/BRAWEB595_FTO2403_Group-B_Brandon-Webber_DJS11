@@ -16,9 +16,7 @@ export default function AllPodcasts() {
 
   const [showFilters, setShowFilters] = useState(false);
 
-  const filterGenres = searchParams.get("genres");
-  const filterOrder = searchParams.get("order");
-  const filterRelease = searchParams.get("release");
+  const filterType = searchParams.get("type");
 
   useEffect(() => {
     if (!podcasts) {
@@ -28,32 +26,41 @@ export default function AllPodcasts() {
   }, [podcasts, fetchAllPodcasts]);
 
   let displayedPodcasts = podcasts;
+  const filterGenres = [
+    "Personal Growth",
+    "Investigative Journalism",
+    "History",
+    "Comedy",
+    "Entertainment",
+    "Business",
+    "Fiction",
+    "News",
+    "Kids and Family",
+  ];
 
-  if (filterGenres) {
+  if (filterGenres.includes(filterType)) {
     displayedPodcasts = podcasts.filter((podcast) =>
-      podcast.genres.includes(+filterGenres)
+      podcast.genres.includes(filterType)
     );
-  }
-
-  if (filterOrder) {
-    displayedPodcasts = podcasts.reverse();
-  }
-
-  if (filterRelease == "newest") {
-    displayedPodcasts = podcasts
-      .sort((a, b) => new Date(a.updated) - new Date(b.updated))
-      .reverse();
-  }
-
-  if (filterRelease == "oldest") {
-    displayedPodcasts = podcasts.sort(
+  } else if (filterType == "a-z") {
+    displayedPodcasts = podcasts.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (filterType == "z-a") {
+    displayedPodcasts = podcasts.sort((a, b) => b.title.localeCompare(a.title));
+  } else if (filterType == "oldest") {
+    const temp = podcasts;
+    displayedPodcasts = temp.sort(
       (a, b) => new Date(a.updated) - new Date(b.updated)
     );
+  } else if (filterType == "newest") {
+    const temp = podcasts;
+    displayedPodcasts = temp.sort(
+      (b, a) => new Date(a.updated) - new Date(b.updated)
+    );
+  } else {
+    displayedPodcasts = podcasts?.sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
   }
-
-  // const displayedPodcasts = filterGenres
-  //   ? podcasts.filter((podcast) => podcast.genres.includes(+filterGenres))
-  //   : podcasts;
 
   const podcastElements = displayedPodcasts?.map((podcast) => {
     return (
@@ -116,51 +123,55 @@ export default function AllPodcasts() {
         {/* Filter div */}
         <div className={`${showFilters ? "grid" : "hidden"} grid-cols-3 gap-1`}>
           {/* Genres buttons */}
-          <button onClick={() => handleFilterChange("genres", 1)}>
+          <button onClick={() => handleFilterChange("type", "Personal Growth")}>
             Personal Growth
           </button>
-          <button onClick={() => handleFilterChange("genres", 2)}>
+          <button
+            onClick={() =>
+              handleFilterChange("type", "Investigative Journalism")
+            }
+          >
             Investigative Journalism
           </button>
-          <button onClick={() => handleFilterChange("genres", 9)}>
+          <button
+            onClick={() => handleFilterChange("type", " Kids and Family")}
+          >
             Kids and Family
           </button>
-          <button onClick={() => handleFilterChange("genres", 3)}>
+          <button onClick={() => handleFilterChange("type", "History")}>
             History
           </button>
-          <button onClick={() => handleFilterChange("genres", 4)}>
+          <button onClick={() => handleFilterChange("type", "Comedy")}>
             Comedy
           </button>
-          <button onClick={() => handleFilterChange("genres", 5)}>
+          <button onClick={() => handleFilterChange("type", "Entertainment")}>
             Entertainment
           </button>
-          <button onClick={() => handleFilterChange("genres", 6)}>
+          <button onClick={() => handleFilterChange("type", "Business")}>
             Business
           </button>
-          <button onClick={() => handleFilterChange("genres", 7)}>
+          <button onClick={() => handleFilterChange("type", "Fiction")}>
             Fiction
           </button>
-          <button onClick={() => handleFilterChange("genres", 8)}>News</button>
+          <button onClick={() => handleFilterChange("type", "News")}>
+            News
+          </button>
 
-          <button onClick={() => handleFilterChange("order", null)}>A-Z</button>
+          {/* filtering buttons */}
+          <button onClick={() => handleFilterChange("type", "a-z")}>A-Z</button>
 
-          <button onClick={() => handleFilterChange("order", 1)}>Z-A</button>
+          <button onClick={() => handleFilterChange("type", "z-a")}>Z-A</button>
 
-          <button onClick={() => handleFilterChange("release", "oldest")}>
+          <button onClick={() => handleFilterChange("type", "oldest")}>
             Oldest
           </button>
 
-          <button onClick={() => handleFilterChange("release", "newest")}>
+          <button onClick={() => handleFilterChange("type", "newest")}>
             Newest
           </button>
 
-          <button
-            onClick={() => {
-              handleFilterChange("genres", null);
-              handleFilterChange("order", null);
-              handleFilterChange("release", null);
-            }}
-          >
+          {/* clear filtering button */}
+          <button onClick={() => handleFilterChange("type", null)}>
             Clear
           </button>
         </div>
