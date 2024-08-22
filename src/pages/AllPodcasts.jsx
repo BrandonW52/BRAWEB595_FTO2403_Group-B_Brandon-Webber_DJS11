@@ -120,55 +120,123 @@ export default function AllPodcasts() {
         {/* Filter div */}
         <div className={`${showFilters ? "grid" : "hidden"} grid-cols-3 gap-1`}>
           {/* Genres buttons */}
-          <button onClick={() => handleFilterChange("type", "Personal Growth")}>
+          <button
+            onClick={() => handleFilterChange("type", "Personal Growth")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Personal Growth" ? "bg-accent" : ""
+            }`}
+          >
             Personal Growth
           </button>
           <button
             onClick={() =>
               handleFilterChange("type", "Investigative Journalism")
             }
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Investigative Journalism" ? "bg-accent" : ""
+            }`}
           >
             Investigative Journalism
           </button>
           <button
-            onClick={() => handleFilterChange("type", " Kids and Family")}
+            onClick={() => handleFilterChange("type", "Kids and Family")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Kids and Family" ? "bg-accent" : ""
+            }`}
           >
             Kids and Family
           </button>
-          <button onClick={() => handleFilterChange("type", "History")}>
+          <button
+            onClick={() => handleFilterChange("type", "History")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "History" ? "bg-accent" : ""
+            }`}
+          >
             History
           </button>
-          <button onClick={() => handleFilterChange("type", "Comedy")}>
+          <button
+            onClick={() => handleFilterChange("type", "Comedy")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Comedy" ? "bg-accent" : ""
+            }`}
+          >
             Comedy
           </button>
-          <button onClick={() => handleFilterChange("type", "Entertainment")}>
+          <button
+            onClick={() => handleFilterChange("type", "Entertainment")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Entertainment" ? "bg-accent" : ""
+            }`}
+          >
             Entertainment
           </button>
-          <button onClick={() => handleFilterChange("type", "Business")}>
+          <button
+            onClick={() => handleFilterChange("type", "Business")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Business" ? "bg-accent" : ""
+            }`}
+          >
             Business
           </button>
-          <button onClick={() => handleFilterChange("type", "Fiction")}>
+          <button
+            onClick={() => handleFilterChange("type", "Fiction")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "Fiction" ? "bg-accent" : ""
+            }`}
+          >
             Fiction
           </button>
-          <button onClick={() => handleFilterChange("type", "News")}>
+          <button
+            onClick={() => handleFilterChange("type", "News")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "News" ? "bg-accent" : ""
+            }`}
+          >
             News
           </button>
 
           {/* filtering buttons */}
-          <button onClick={() => handleFilterChange("type", "a-z")}>A-Z</button>
+          <button
+            onClick={() => handleFilterChange("type", "a-z")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "a-z" ? "bg-accent" : ""
+            }`}
+          >
+            A-Z
+          </button>
 
-          <button onClick={() => handleFilterChange("type", "z-a")}>Z-A</button>
+          <button
+            onClick={() => handleFilterChange("type", "z-a")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "z-a" ? "bg-accent" : ""
+            }`}
+          >
+            Z-A
+          </button>
 
-          <button onClick={() => handleFilterChange("type", "oldest")}>
+          <button
+            onClick={() => handleFilterChange("type", "oldest")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "oldest" ? "bg-accent" : ""
+            }`}
+          >
             Oldest
           </button>
 
-          <button onClick={() => handleFilterChange("type", "newest")}>
+          <button
+            onClick={() => handleFilterChange("type", "newest")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "newest" ? "bg-accent" : ""
+            }`}
+          >
             Newest
           </button>
 
           {/* clear filtering button */}
-          <button onClick={() => handleFilterChange("type", null)}>
+          <button
+            onClick={() => handleFilterChange("type", null)}
+            className="text-light-grey"
+          >
             Clear
           </button>
         </div>

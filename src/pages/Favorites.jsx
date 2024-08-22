@@ -132,20 +132,47 @@ export default function Favorites() {
           } grid-cols-3 gap-1 my-3`}
         >
           {/* filtering buttons */}
-          <button onClick={() => handleFilterChange("type", "a-z")}>A-Z</button>
+          <button
+            onClick={() => handleFilterChange("type", "a-z")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "a-z" ? "bg-accent" : ""
+            }`}
+          >
+            A-Z
+          </button>
 
-          <button onClick={() => handleFilterChange("type", "z-a")}>Z-A</button>
+          <button
+            onClick={() => handleFilterChange("type", "z-a")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "z-a" ? "bg-accent" : ""
+            }`}
+          >
+            Z-A
+          </button>
 
-          <button onClick={() => handleFilterChange("type", "oldest")}>
+          <button
+            onClick={() => handleFilterChange("type", "oldest")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "oldest" ? "bg-accent" : ""
+            }`}
+          >
             Oldest
           </button>
 
-          <button onClick={() => handleFilterChange("type", "newest")}>
+          <button
+            onClick={() => handleFilterChange("type", "newest")}
+            className={`border border-light-grey rounded-lg  text-white ${
+              filterType === "newest" ? "bg-accent" : ""
+            }`}
+          >
             Newest
           </button>
 
           {/* clear filtering button */}
-          <button onClick={() => handleFilterChange("type", null)}>
+          <button
+            onClick={() => handleFilterChange("type", null)}
+            className="text-light-grey"
+          >
             Clear
           </button>
         </div>
