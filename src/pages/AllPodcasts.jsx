@@ -103,7 +103,7 @@ export default function AllPodcasts() {
       {/* Playists */}
       <Link to="favorites">
         <div className="p-2">
-          <div className="flex p-4 gap-4 mt-2 rounded-lg bg-grey">
+          <div className="flex items-center p-4 gap-4 mt-2 rounded-lg bg-grey">
             <img className="h-5 rounded-lg" src={favoriteImg} alt="" />
             <h1 className="my-auto text-white text-xl font-bold">Favorites</h1>
           </div>
