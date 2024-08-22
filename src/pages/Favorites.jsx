@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import useFavoritesStore from "../zustand/FavoritesStore";
@@ -73,15 +73,19 @@ export default function Favorites() {
   const favoriteElement = displayedFavorites.map((favorite, index) => (
     <div key={index} className="bg-grey rounded-xl p-4 mx-4">
       <h3 className="font-bold text-accent">{favorite.podcastTitle}</h3>
-      <h4>Season: {favorite.season}</h4>
-      <h4>Episode: {favorite.episode}</h4>
-      <h4>{favorite.episodeTitle}</h4>
 
-      <img className="h-4" src={playButton} alt="" />
+      <div className="grid grid-cols-2 gap-1">
+        <h4 className="text-light-grey">Season: {favorite.season}</h4>
+        <h4 className="text-light-grey">Episode: {favorite.episode}</h4>
+        <h4>{favorite.episodeTitle}</h4>
 
-      <button onClick={() => handleFavClick(favorite)}>
-        <img className="h-4" src={favoritedIcon} alt="" />
-      </button>
+        <img className="h-4" src={playButton} alt="" />
+
+        <button onClick={() => handleFavClick(favorite)}>
+          <img className="h-4" src={favoritedIcon} alt="" />
+        </button>
+      </div>
+      <p className="text-sm text-light-grey text-right">{favorite.added}</p>
     </div>
   ));
 
@@ -95,6 +99,12 @@ export default function Favorites() {
       return prevParams;
     });
   }
+
+  useEffect(() => {
+    if (!favorites.length) {
+      setShowFilters(false);
+    }
+  }, [favorites]);
 
   return (
     <>
