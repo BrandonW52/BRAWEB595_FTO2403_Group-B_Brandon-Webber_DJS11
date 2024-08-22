@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import AllPodcasts from "./pages/AllPodcasts";
 import SinglePodcast from "./pages/SinglePodcast";
 import Favorites from "./pages/Favorites";
+import NotFound from "./pages/NotFound";
 
 import Layout from "./components/layout/Layout";
 
@@ -18,6 +19,8 @@ function App() {
           <Route index element={<AllPodcasts />} />
           <Route path="/:podcastId" element={<SinglePodcast />} />
           <Route path="/favorites" element={<Favorites />} />
+
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

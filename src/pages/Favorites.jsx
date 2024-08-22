@@ -59,7 +59,15 @@ export default function Favorites() {
       (b, a) => new Date(a.added) - new Date(b.added)
     );
   } else {
-    displayedFavorites = favorites;
+    displayedFavorites = favorites.sort((a, b) => {
+      let check = a.podcastId - b.podcastId;
+      if (check !== 0) return check;
+
+      check = a.season - b.season;
+      if (check !== 0) return check;
+
+      return a.episode - b.episode;
+    });
   }
 
   const favoriteElement = displayedFavorites.map((favorite, index) => (
