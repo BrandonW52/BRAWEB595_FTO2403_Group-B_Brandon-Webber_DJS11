@@ -45,16 +45,12 @@ export default function SinglePodcast() {
     }
   };
 
-  const isFavorite = (podcastId, podcastSeason, episodeTitle) => {
+  const isFavorite = (podcastId, podcastSeason, episodeEpisode) => {
     return favorites.some((favorite) => {
       return (
-        favorite.podcastId === podcastId &&
-        favorite.seasons.some((season) => {
-          return (
-            season.season === podcastSeason &&
-            season.episodes.some((episode) => episode.title === episodeTitle)
-          );
-        })
+        favorite.podcastId == podcastId &&
+        favorite.season == podcastSeason &&
+        favorite.episode == episodeEpisode
       );
     });
   };
@@ -64,14 +60,16 @@ export default function SinglePodcast() {
     .join(", ");
 
   const handleFavClick = (episode, season) => {
-    episode.added = new Date().toJSON().slice(0, 10);
     const episodeObject = {
       podcastId: podcastId,
       podcastTitle: podcast.title,
-      podcastGeners: podcast.genres,
-      seasons: [
-        { season: season.season, title: season.title, episodes: [episode] },
-      ],
+      season: season.season,
+
+      episode: episode.episode,
+      episodeTitle: episode.title,
+      episodeFile: episode.file,
+
+      added: new Date().toJSON().slice(0, 10),
     };
 
     toggleFavorite(episodeObject);
@@ -105,7 +103,7 @@ export default function SinglePodcast() {
                     <img
                       className="h-4"
                       src={
-                        isFavorite(podcastId, season.season, episode.title)
+                        isFavorite(podcastId, season.season, episode.episode)
                           ? favoritedIcon
                           : unFavoritedIcon
                       }

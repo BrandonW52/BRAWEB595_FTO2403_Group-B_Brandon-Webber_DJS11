@@ -47,13 +47,11 @@ export default function AllPodcasts() {
   } else if (filterType == "z-a") {
     displayedPodcasts = podcasts.sort((a, b) => b.title.localeCompare(a.title));
   } else if (filterType == "oldest") {
-    const temp = podcasts;
-    displayedPodcasts = temp.sort(
+    displayedPodcasts = podcasts.sort(
       (a, b) => new Date(a.updated) - new Date(b.updated)
     );
   } else if (filterType == "newest") {
-    const temp = podcasts;
-    displayedPodcasts = temp.sort(
+    displayedPodcasts = podcasts.sort(
       (b, a) => new Date(a.updated) - new Date(b.updated)
     );
   } else {
@@ -79,7 +77,6 @@ export default function AllPodcasts() {
   });
 
   function handleFilterChange(key, value) {
-    console.log(value);
     setSearchParams((prevParams) => {
       if (value === null) {
         prevParams.delete(key);

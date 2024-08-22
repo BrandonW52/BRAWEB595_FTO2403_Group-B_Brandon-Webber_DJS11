@@ -10,15 +10,8 @@ const useFavoritesStore = create((set) => ({
       const existingIndex = favorites.findIndex((favorite) => {
         return (
           favorite.podcastId === episodeObject.podcastId &&
-          favorite.seasons.some((season) => {
-            return (
-              season.season === episodeObject.seasons[0].season &&
-              season.episodes.some(
-                (ep) =>
-                  ep.episode === episodeObject.seasons[0].episodes[0].episode
-              )
-            );
-          })
+          favorite.season === episodeObject.season &&
+          favorite.episode === episodeObject.episode
         );
       });
 
@@ -36,18 +29,3 @@ const useFavoritesStore = create((set) => ({
 }));
 
 export default useFavoritesStore;
-
-// Rewrite so it looks something like this
-// object = {
-//     podcastId: 123,
-//     season: 2,
-//     episode: {
-//         title: "episode 1",
-//         description: "ep 1 desc",
-//         episode: 1,
-//         file: "#"
-//     }
-// }
-
-// then check all to see if it exists
-// Add time stamp when added
