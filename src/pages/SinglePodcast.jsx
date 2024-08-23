@@ -229,7 +229,7 @@ export default function SinglePodcast() {
       </div>
 
       {/* Card containg seasons/episodes */}
-      <div className="bg-grey rounded-xl p-4 my-3 mx-4">
+      <div className="bg-grey rounded-xl p-4 my-3 mx-4 mb-32">
         <h2 className="text-accent font-bold text-lg">Seasons</h2>
 
         <div className="grid grid-cols-1 gap-4">{seasonsElement}</div>

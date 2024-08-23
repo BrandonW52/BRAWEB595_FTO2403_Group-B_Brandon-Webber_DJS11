@@ -275,7 +275,7 @@ export default function AllPodcasts() {
         </div>
       </div>
       {/* Podcasts */}
-      <div className="grid grid-cols-2 gap-4 p-2 mb-14 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 p-2 mb-32 lg:grid-cols-4">
         {podcastElements}
       </div>
     </>

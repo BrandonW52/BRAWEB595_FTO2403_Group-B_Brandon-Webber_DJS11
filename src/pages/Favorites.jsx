@@ -228,7 +228,7 @@ export default function Favorites() {
       </div>
 
       {/* Favorite element if favorite array empty displays alt */}
-      <div className="flex flex-col gap-3 mb-16">
+      <div className="flex flex-col gap-3 mb-32">
         {favorites.length ? (
           favoriteElement
         ) : (
