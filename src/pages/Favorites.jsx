@@ -7,6 +7,8 @@ import { Link, useSearchParams } from "react-router-dom";
 // imports favorites store
 import useFavoritesStore from "../zustand/FavoritesStore";
 
+import Player from "../components/layout/Player";
+
 // imports svg icons
 import backArrowIcon from "../assets/navigation-back-arrow-svgrepo-com.svg";
 import playButton from "../assets/play-button-svgrepo-com.svg";
@@ -54,6 +56,22 @@ export default function Favorites() {
     toggleFavorite(episodeObject);
   };
 
+  // Handles playing episode by creating a episode object and passing it to favorite store
+  const handleplayClick = (favorite) => {
+    const episodeObject = {
+      podcastId: favorite.podcastId,
+      podcastTitle: favorite.podcastTitle,
+      season: favorite.season,
+
+      episode: favorite.episode,
+      episodeTitle: favorite.episodeTitle,
+      episodeFile: favorite.episodeFile,
+    };
+
+    // Calls the function with the crated object
+    Player(episodeObject);
+  };
+
   // Filter check that returns filtered favorites array with the use of .sort
   if (filterType == "z-a") {
     displayedFavorites = favorites.sort((a, b) =>
@@ -93,7 +111,9 @@ export default function Favorites() {
         <h4 className="text-light-grey">Episode: {favorite.episode}</h4>
         <h4>{favorite.episodeTitle}</h4>
 
-        <img className="h-4" src={playButton} alt="play button" />
+        <button onClick={() => handleplayClick(favorite)}>
+          <img className="h-4" src={playButton} alt="play button" />
+        </button>
 
         <button onClick={() => handleFavClick(favorite)}>
           <img className="h-4" src={favoritedIcon} alt="cartoon heart icon" />

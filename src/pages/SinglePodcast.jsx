@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 // imports zustand stores
 import usePodcastStore from "../zustand/Store";
 import useFavoritesStore from "../zustand/FavoritesStore";
+import useCurrentlyPlayingStore from "../zustand/CurrentlyPlaying";
 
 // imports loading and error pages
 import Loading from "./Loading";
@@ -27,6 +28,7 @@ export default function SinglePodcast() {
   // Sets up variables from store
   const { error, loading, fetchSinglePodcast } = usePodcastStore();
   const { favorites, toggleFavorite } = useFavoritesStore();
+  const { togglePlaying } = useCurrentlyPlayingStore();
 
   // Sets use state for podcast / show more / season index for displaying one season at a time
   const [podcast, setPodcast] = useState(null);
@@ -90,6 +92,22 @@ export default function SinglePodcast() {
     toggleFavorite(episodeObject);
   };
 
+  // Function to hangle playing an episodes by passing the episode object and season number
+  const handleplayClick = (episode, season) => {
+    const episodeObject = {
+      podcastId: podcastId,
+      podcastTitle: podcast.title,
+      season: season.season,
+
+      episode: episode.episode,
+      episodeTitle: episode.title,
+      episodeFile: episode.file,
+    };
+
+    // Calls the function with the crated object
+    togglePlaying(episodeObject);
+  };
+
   // Creates podcast season element
   const seasonsElement = podcast?.seasons.map((season, index) => {
     return (
@@ -122,7 +140,10 @@ export default function SinglePodcast() {
             <div className="flex flex-col gap-3">
               {season.episodes.map((episode) => (
                 <div key={episode.episode} className="flex justify-between">
-                  <img className="h-4" src={playButton} alt="" />
+                  <button onClick={() => handleplayClick(episode, season)}>
+                    <img className="h-4" src={playButton} alt="play button" />
+                  </button>
+
                   <h4 className="text-white">{episode.title}</h4>
 
                   <button onClick={() => handleFavClick(episode, season)}>
