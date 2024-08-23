@@ -1,8 +1,10 @@
 // Basic footer
 
+// imports zustand stores
 import useCurrentlyPlayingStore from "../../zustand/CurrentlyPlaying";
 import useFavoritesStore from "../../zustand/FavoritesStore";
 
+// imports svg icons
 import unFavoritedIcon from "../../assets/favorite-svgrepo-com.svg";
 import favoritedIcon from "../../assets/favorite-filled-svgrepo-com.svg";
 
@@ -11,6 +13,7 @@ export default function Player() {
   const { favorites, toggleFavorite } = useFavoritesStore();
   const { currentEpisode } = useCurrentlyPlayingStore();
 
+  // Checks if the current episode is favorited
   const isFavorite = (passedEpisode) => {
     return favorites.some((favorite) => {
       return (
@@ -36,6 +39,21 @@ export default function Player() {
     // Calls the function with the crated object
     toggleFavorite(episodeObject);
   };
+
+  const beforeUnloadHandler = (event) => {
+    // Recommended
+    event.preventDefault();
+
+    // Included for legacy support, e.g. Chrome/Edge < 119
+    event.returnValue = true;
+  };
+
+  // If there is an episode in currentEpisode it prevents window close
+  if (currentEpisode) {
+    window.addEventListener("beforeunload", beforeUnloadHandler);
+  } else {
+    window.removeEventListener("beforeunload", beforeUnloadHandler);
+  }
 
   return (
     <div className="fixed bottom-0 w-full flex flex-col items-center  gap-2 p-4 bg-grey text-white">
