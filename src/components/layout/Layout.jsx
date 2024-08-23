@@ -6,10 +6,10 @@ import Footer from "./Footer";
 
 export default function Layout() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen lg:w-screen">
       <Header />
 
-      <main>
+      <main className="lg:w-4/5 lg:mx-auto">
         <Outlet />
       </main>
 

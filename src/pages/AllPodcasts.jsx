@@ -147,7 +147,11 @@ export default function AllPodcasts() {
         </div>
 
         {/* Filter div */}
-        <div className={`${showFilters ? "grid" : "hidden"} grid-cols-3 gap-1`}>
+        <div
+          className={`${
+            showFilters ? "grid" : "hidden"
+          } grid-cols-3 gap-1 lg:grid-cols-9 lg:gap-4`}
+        >
           {/* Genres buttons */}
           <button
             onClick={() => handleFilterChange("type", "Personal Growth")}
@@ -271,7 +275,9 @@ export default function AllPodcasts() {
         </div>
       </div>
       {/* Podcasts */}
-      <div className="grid grid-cols-2 gap-4 p-2 mb-14">{podcastElements}</div>
+      <div className="grid grid-cols-2 gap-4 p-2 mb-14 lg:grid-cols-4">
+        {podcastElements}
+      </div>
     </>
   );
 }

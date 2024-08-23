@@ -158,7 +158,7 @@ export default function Favorites() {
         <div
           className={`${
             showFilters ? "grid" : "hidden"
-          } grid-cols-3 gap-1 my-3`}
+          } grid-cols-3 gap-1 my-3 lg:gap-4`}
         >
           {/* filtering buttons */}
           <button
