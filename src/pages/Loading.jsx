@@ -1,3 +1,5 @@
+// Basic loading animation
+
 export default function Loading() {
   return (
     <div

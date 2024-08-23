@@ -1,3 +1,5 @@
+// Basic player will replace footer
+
 export default function Player() {
   return (
     <div className="bg-grey rounded-lg">
