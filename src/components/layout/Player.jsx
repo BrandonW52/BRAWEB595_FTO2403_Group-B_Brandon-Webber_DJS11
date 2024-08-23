@@ -7,7 +7,6 @@ import useFavoritesStore from "../../zustand/FavoritesStore";
 // imports svg icons
 import unFavoritedIcon from "../../assets/favorite-svgrepo-com.svg";
 import favoritedIcon from "../../assets/favorite-filled-svgrepo-com.svg";
-import { useEffect } from "react";
 
 export default function Player() {
   // Sets up variables from favorites store
